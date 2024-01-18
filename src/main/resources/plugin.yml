@@ -1,0 +1,35 @@
+main: bash.reactioner.SkyWarsPlugin
+name: SkyWarsUp
+version: 1.0
+api-version: 1.20
+depend:
+  - Vault
+softdepend:
+  - PlaceholderAPI
+commands:
+  swcreate:
+    usage: /swcreate <arena-name> <min-players> <max-players>
+  swsetcorner:
+    usage: /swsetcorner <arena-name> <1 | 2>
+  swaddcabin:
+    usage: /swaddcabin <arena-name>
+  swresetcabins:
+    usage: /swresetcabins <arena-name>
+  swarenaremove:
+    usage: /swarenaremove <arena-name>
+  swsetglobalspawn:
+    usage: /swsetglobalspawn
+  swcreateenchant:
+    usage: /swcreateenchant <enchant-name> <enchant-type> <level0>:<proba0> <level1>:<proba1> ...
+  swenchantremove:
+    usage: /swenchantremove <enchant-name>
+  swcreateitem:
+    usage: /swcreateitem <item-name> <item-probability-weight> <MATERIAL_UPPER_CASE> <min-count> <max-count> <enchantment-1> <enchantment-2> ...
+  switemremove:
+    usage: /switemremove <item-name>
+  swkitcreate:
+    usage: /swcreatekit <kit-name> <kit-lore-string1> <kit-lore-string2> ...
+  swkitsave:
+    usage: /swkitsave <kit-name> <price>
+  swkitremove:
+    usage: /swkitremove <kit-name>

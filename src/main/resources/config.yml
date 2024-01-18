@@ -1,0 +1,57 @@
+# Placeholders: %sw_game_online%, %sw_game_maxplayers%, %sw_killer%, %sw_game_winner%, %sw_game_top_name_n%, %sw_game_top_kills_n%
+plugin-messages-prefix: '[SkyWars] '
+join-to-arena-message: '%player_name% joined the game! %sw_game_online%/%sw_game_maxplayers%'
+quit-from-arena-message: '%player_name% leaved the game! %sw_game_online%/%sw_game_maxplayers%'
+join-to-server-message: '%player_name% joined the server!'
+quit-from-server-message: '%player_name% leaved the server!'
+player-died-message: '%player_name% died! %sw_game_online% players left!'
+player-killed-by-player-message: '%player_name% was killed by %sw_killer%! %sw_game_online% players left!'
+teleport-to-game-message: 'Teleporting to game...'
+teleport-to-spawn-message: 'Teleporting to spawn...'
+start-messages:
+  start-in-30: 'The game will start in 30 seconds'
+  start-in-15: 'The game will start in 15 seconds'
+  start-in-10: 'The game will start in 10 seconds'
+  start-in-5: 'The game will start in 5 seconds'
+  start-in-3: 'The game will start in 3 seconds'
+  start-in-2: 'The game will start in 2 seconds'
+  start-in-1: 'The game will start in 1 second'
+# If players is not enough then it will be replaced by dummy
+missed-value-for-placeholder-dummy: '-'
+win-message:
+  - '%sw_game_winner% has won the game!!!'
+  - 'Top 3 killers:'
+  - '1) %sw_game_top_name_1% - %sw_game_top_kills_1%'
+  - '2) %sw_game_top_name_2% - %sw_game_top_kills_2%'
+  - '3) %sw_game_top_name_3% - %sw_game_top_kills_3%'
+  - 'The game will reset in 10 seconds'
+db:
+  create-table-if-not-exists: true
+  url: 'jdbc:postgresql://localhost:5432/postgres'
+  username: postgres
+  password: root
+sql:
+  create-table-if-not-exists: 'CREATE TABLE IF NOT EXISTS sw_player(name VARCHAR(16) PRIMARY KEY, wins INT, kills INT, chests_looten INT, games INT, deaths INT, kits VARCHAR(100) NOT NULL);'
+  create-player: "INSERT INTO sw_player(name, wins, kills, chests_looten, games, deaths, kits) VALUES(?, 0, 0, 0, 0, 0, '');"
+  read-player: "SELECT wins, kills, chests_looten, games, deaths, kits FROM sw_player WHERE name = ?;"
+  update-player: "UPDATE sw_player SET wins = ?, kills = ?, chests_looten = ?, games = ?, deaths = ?, kits = ? WHERE name = ?;"
+  delete-player: "DELETE FROM sw_player WHERE name = ?;"
+# Placeholders: %sw_stats_wins%, %sw_stats_kills%, %sw_game_name%, %sw_game_secondsbeforestart%, %sw_game_kills%
+scoreboards:
+  lobby:
+    - 'Welcome to ReactWorld!'
+    - 'Name: %player_name%'
+    - 'Wins: %sw_stats_wins%'
+    - 'Kills: %sw_stats_kills%'
+  waiting:
+    - 'Waiting %sw_game_online%/%sw_game_maxplayers%'
+    - 'Map: %sw_game_name%'
+  starting:
+    - 'Waiting %sw_game_online%/%sw_game_maxplayers%'
+    - 'Map: %sw_game_name%'
+    - 'Starting in %sw_game_secondsbeforestart%'
+  active:
+    - 'Map: %sw_game_name%'
+    - 'Players left: %sw_game_online%'
+    - 'Kills: %sw_game_kills%'
+    - 'Chests looten: %sw_game_chestslooten%'
