@@ -11,6 +11,7 @@ public class MenusManager {
     public void openKitBuyMenu(Player p) {
         Inventory inventory = Bukkit.createInventory(null, 9, Component.text("Buy kit"));
         inventory.setItem(2, SkyWarsPlugin.getInstance().getItemsManager().getBuyKit().getItem());
+        inventory.setItem(6, SkyWarsPlugin.getInstance().getItemsManager().getCancelBuying().getItem());
         p.openInventory(inventory);
     }
 }

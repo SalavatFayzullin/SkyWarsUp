@@ -35,6 +35,8 @@ public class ItemsManager implements Listener {
                 SkyWarsPlugin.getInstance().getKitsManager().openMenu(p);
             }
         }, Material.EMERALD_BLOCK, Component.text("Buy"));
+        cancelBuying = new InteractItem(p -> SkyWarsPlugin.getInstance().getKitsManager().openMenu(p), Material.REDSTONE_BLOCK, Component.text("Cancel"));
+        items.add(cancelBuying);
         items.add(buyKit);
     }
 

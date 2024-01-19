@@ -26,24 +26,36 @@ public class KitsManager {
 
     {
         kitsIcons = new HashMap<>();
-        SkyWarsPlugin.getInstance().getKits().forEach((k, v) -> {
-            InteractItem item = new InteractItem(p -> {
-                if (isKitAvailableForPlayer(p, v)) {
-                    SkyWarsPlugin.getInstance().getGamesManager().onKitSelect(p, v);
-                    SkyWarsPlugin.getInstance().broadcast("You selected the %s kit".formatted(k), p, p);
-                    openMenu(p);
-                } else {
-                    if (SkyWarsPlugin.getInstance().getEconomy().getBalance(p) >= v.getPrice()) {
-                        SkyWarsPlugin.getInstance().getCache().setWantedKitToPlayer(p, v);
-                        SkyWarsPlugin.getInstance().getMenusManager().openKitBuyMenu(p);
-                    } else SkyWarsPlugin.getInstance().broadcast(ChatColor.RED + "You can not select the %s kit".formatted(k), p, p);
-                }
-            }, v.getIcon(), Component.text(k), v.getKitLore().stream().map(Component::text).collect(Collectors.toList()));
-            kitsIcons.put(item, v);
-            SkyWarsPlugin.getInstance().getItemsManager().addItem(item);
-        });
+        SkyWarsPlugin.getInstance().getKits().forEach((k, v) -> addKitIcon(k, v));
         selectKit = new InteractItem(this::openMenu, Material.FEATHER, Component.text("Select a kit"));
         SkyWarsPlugin.getInstance().getItemsManager().addItem(selectKit);
+    }
+
+    public void addKitIcon(String name, SwKit kit) {
+        InteractItem item = new InteractItem(p -> {
+            if (isKitAvailableForPlayer(p, kit)) {
+                SkyWarsPlugin.getInstance().getGamesManager().onKitSelect(p, kit);
+                SkyWarsPlugin.getInstance().broadcast("You selected the %s kit".formatted(name), p, p);
+                openMenu(p);
+            } else {
+                if (SkyWarsPlugin.getInstance().getEconomy().getBalance(p) >= kit.getPrice()) {
+                    SkyWarsPlugin.getInstance().getCache().setWantedKitToPlayer(p, kit);
+                    SkyWarsPlugin.getInstance().getMenusManager().openKitBuyMenu(p);
+                } else SkyWarsPlugin.getInstance().broadcast(ChatColor.RED + "You can not select the %s kit".formatted(name), p, p);
+            }
+        }, kit.getIcon(), Component.text(name), kit.getKitLore().stream().map(Component::text).collect(Collectors.toList()));
+        kitsIcons.put(item, kit);
+        SkyWarsPlugin.getInstance().getItemsManager().addItem(item);
+    }
+
+    public void removeKitIcon(SwKit kit) {
+        for (var entry : kitsIcons.entrySet()) {
+            if (entry.getValue() == kit) {
+                SkyWarsPlugin.getInstance().getItemsManager().removeItem(entry.getKey());
+                kitsIcons.remove(entry.getKey());
+                break;
+            }
+        }
     }
 
     public boolean onKitBuy(Player p) {

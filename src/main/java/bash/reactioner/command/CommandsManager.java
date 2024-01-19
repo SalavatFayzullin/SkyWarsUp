@@ -18,6 +18,7 @@ public class CommandsManager implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (sender instanceof Player p) {
+            if (!p.isOp()) return false;
             Location loc = cleanLocation(p.getLocation());
             if (s.equalsIgnoreCase("swcreate")) {
                 if (args.length != 3) return false;

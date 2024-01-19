@@ -24,6 +24,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -240,6 +241,7 @@ public class SkyWarsPlugin extends JavaPlugin {
         getConfig().set("kits." + name, null);
         saveConfig();
         kits.remove(name);
+        kitsManager.removeKitIcon(kit);
         return true;
     }
 
@@ -252,6 +254,7 @@ public class SkyWarsPlugin extends JavaPlugin {
         kits.put(name, kit);
         getConfig().set("kits." + name, kit);
         saveConfig();
+        kitsManager.addKitIcon(name, kit);
     }
 
     public SwKit getKit(String name) {

@@ -49,7 +49,6 @@ public class ActiveState implements State {
         if (game.getMaxPlayers() > game.getModel().getCabins().size()) {
             Bukkit.broadcast(Component.text(ChatColor.RED + "!!! MAX PLAYERS COUNT IS NOT EQUAL TO CABINS COUNT !!! PLEASE CONFIGURE CABINS PROPERLY !!!"));
         }
-
     }
 
     private void updateTitle(Game game) {
